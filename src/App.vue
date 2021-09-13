@@ -11,12 +11,24 @@
         :statusId="info.statusId"
         :info="info"
       />
+      <div class="row">
+        <BlockTimeBox
+          :statusId="info.statusId"
+          :info="info"
+        />
+        <TransactionsBox
+          :statusId="info.statusId"
+          :info="info"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import BlockClock from './components/BlockClock.vue'
+import BlockTimeBox from './components/blockTime/BlockTimeBox.vue'
+import TransactionsBox from './components/transactions/TransactionsBox.vue'
 import DataManipulator from './components/DataManipulator.vue'
 
 export default {
@@ -24,6 +36,8 @@ export default {
 
   components: {
     BlockClock,
+    BlockTimeBox,
+    TransactionsBox,
     DataManipulator
   },
 
@@ -84,15 +98,19 @@ export default {
     const blocks = []
     let minutes = 0
     let minutesTotal = 0
+    let counter = 0
     while(minutesTotal < 1440) {
       minutes = Math.floor(Math.random() * 30 + 5)
       // minutes = 60
 
       blocks.push({
-        minute: minutesTotal
+        index: counter,
+        minute: minutesTotal,
+        transactions: Math.round(Math.random() * 3000 + 1000)
       })
 
       minutesTotal += minutes
+      counter ++
     }
 
     return {
@@ -103,7 +121,7 @@ export default {
         status: statuses[statusId],
         peerStatusId: peerStatusId,
         peerStatus: peerStatuses[peerStatusId],
-        maxBlockHeight: 700000,
+        maxBlockHeight: 725165,
         time: minutesNow, // Minutes since midnight
         blockHeight: 123456,  // Current
         blocks: blocks,
@@ -190,8 +208,15 @@ export default {
     .ui {
       flex-grow: 1;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+
+      .row {
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 }
