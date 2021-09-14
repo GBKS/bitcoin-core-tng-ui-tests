@@ -56,6 +56,7 @@ export default {
       const canvas = this.$refs.canvas
       const context = canvas.getContext('2d')
 
+      context.lineWidth = 2
       context.strokeStyle = 'white'
       context.setLineDash([2, 2])
       context.beginPath()
