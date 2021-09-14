@@ -62,7 +62,6 @@
       />
     </template>
 
-
     <label for="syncTimeLeft">Peer status</label>
     <select @change="changePeerStatus" v-model="peerStatusModel">
       <option
@@ -72,6 +71,29 @@
         :selected="item == info.peerStatusId"
       >{{ item }}</option>
     </select>
+
+    <hr />
+
+    <label for="syncTimeLeft">Widget 1</label>
+    <select @change="changeWidget1" v-model="widget1Model">
+      <option
+        v-for="(item, index) in widgetOptions"
+        :key="index"
+        :value="item"
+        :selected="item == info.widget1"
+      >{{ item }}</option>
+    </select>
+
+    <label for="syncTimeLeft">Widget 2</label>
+    <select @change="changeWidget2" v-model="widget2Model">
+      <option
+        v-for="(item, index) in widgetOptions"
+        :key="index"
+        :value="item"
+        :selected="item == info.widget2"
+      >{{ item }}</option>
+    </select>
+
   </div>
 </template>
 
@@ -92,12 +114,21 @@ export default {
   },
 
   data() {
+    const widgetOptions = [
+      'transactions',
+      'block-time',
+      'none'
+    ]
+
     return {
       blockHeightModel: this.info.blockHeight,
       syncProgressModel: this.info.syncProgress,
       syncTimeLeftModel: this.info.syncTimeLeft,
       timeModel: this.info.time,
-      peerStatusModel: this.info.peerStatus
+      peerStatusModel: this.info.peerStatus,
+      widget1Model: this.info.widget1,
+      widget2Model: this.info.widget2,
+      widgetOptions: widgetOptions
     }
   },
 
@@ -108,6 +139,8 @@ export default {
       this.syncTimeLeftModel = this.info.syncTimeLeft
       this.timeModel = this.info.time
       this.peerStatusModel = this.info.peerStatus
+      this.widget1Model = this.info.widget1
+      this.widget2Model = this.info.widget2
     }
   },
 
@@ -134,6 +167,14 @@ export default {
     
     changePeerStatus() {
       this.$emit('changeInfo', 'peerStatusId', this.peerStatusModel)
+    },
+    
+    changeWidget1() {
+      this.$emit('changeInfo', 'widget1', this.widget1Model)
+    },
+    
+    changeWidget2() {
+      this.$emit('changeInfo', 'widget2', this.widget2Model)
     }
   }
 }
@@ -173,6 +214,14 @@ export default {
   select {
     display: block;
     width: 100%;
+  }
+
+  hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-width: 0;
+    height: 1px;
+    background-color: rgba(var(--frontRGB), 0.5);
   }
 }
 

@@ -12,14 +12,22 @@
         :info="info"
       />
       <div class="row">
-        <BlockTimeBox
-          :statusId="info.statusId"
-          :info="info"
-        />
-        <TransactionsBox
-          :statusId="info.statusId"
-          :info="info"
-        />
+        <transition name="fade" mode="out-in">
+          <component
+            :key="widget1Name"
+            :is="widget1Name"
+            :statusId="info.statusId"
+            :info="info"
+          />
+        </transition>
+        <transition name="fade" mode="out-in">
+          <component
+            :key="widget2Name"
+            :is="widget2Name"
+            :statusId="info.statusId"
+            :info="info"
+          />
+        </transition>
       </div>
     </div>
   </div>
@@ -143,8 +151,42 @@ export default {
           {
             status: 'connected'
           }
-        ]
+        ],
+        widget1: 'block-time',
+        widget2: 'transactions'
       }
+    }
+  },
+
+  computed: {
+    widget1Name() {
+      let result = null
+
+      switch(this.info.widget1)  {
+        case 'transactions':
+          result = 'TransactionsBox'
+          break;
+        case 'block-time':
+          result = 'BlockTimeBox'
+          break;
+      }
+
+      return result
+    },
+
+    widget2Name() {
+      let result = null
+
+      switch(this.info.widget2)  {
+        case 'transactions':
+          result = 'TransactionsBox'
+          break;
+        case 'block-time':
+          result = 'BlockTimeBox'
+          break;
+      }
+
+      return result
     }
   },
 
@@ -211,13 +253,25 @@ export default {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 25px;
 
       .row {
-        margin-top: 25px;
+        gap: 25px;
         display: flex;
         flex-direction: column;
       }
     }
   }
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s $ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 </style>

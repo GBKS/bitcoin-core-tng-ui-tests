@@ -88,8 +88,8 @@ export default {
 @import "@/scss/variables.scss";
 
 .block-time-box {
-  // width: 85px;
-  // height: 85px;
+  width: 200px;
+  height: 100px;
   display: flex;
   flex-direction: column;
   

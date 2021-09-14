@@ -13,16 +13,19 @@
       <p>{{ transactionCount }}</p>
     </div>
     <div class="chart">
-      <TransactionsBoxChartItem
-        v-for="(item, index) in visibleBlocks"
-        :key="index"
-        :index="index"
-        :info="item"
-        :overChartItemId="overChartItemId"
-        :transactionCountMax="transactionCountMax"
-        @over="overChartItem"
-        @out="outChartItem"
-      />
+      <transition-group name="fade" appear>
+        <TransactionsBoxChartItem
+          v-for="(item, index) in visibleBlocks"
+          :key="index"
+          :index="index"
+          :info="item"
+          :overChartItemId="overChartItemId"
+          :transactionCountMax="transactionCountMax"
+          :style="{ transitionDelay: (index * 15) + 'ms' }"
+          @over="overChartItem"
+          @out="outChartItem"
+        />
+      </transition-group>
     </div>
   </div>
 </template>
@@ -125,16 +128,14 @@ export default {
 
 <style scoped lang="scss">
 
+@import "@/scss/animations.scss";
+
 .transactions-box {
-  margin-top: 30px;
   width: 200px;
-  // width: 85px;
-  // height: 85px;
+  height: 100px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  // justify-content: stretch;
-  // align-items: stretch;
+  gap: 10px;
 
   .copy {
     flex-grow: 1;
@@ -192,6 +193,16 @@ export default {
     min-height: 60px;
     display: flex;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s $easeOutQuart;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 </style>
