@@ -117,6 +117,7 @@ export default {
     const widgetOptions = [
       'transactions',
       'block-time',
+      'supply',
       'none'
     ]
 

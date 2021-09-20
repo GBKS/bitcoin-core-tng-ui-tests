@@ -37,6 +37,7 @@
 import BlockClock from './components/BlockClock.vue'
 import BlockTimeBox from './components/blockTime/BlockTimeBox.vue'
 import TransactionsBox from './components/transactions/TransactionsBox.vue'
+import SupplyBox from './components/supply/SupplyBox.vue'
 import DataManipulator from './components/DataManipulator.vue'
 
 export default {
@@ -46,6 +47,7 @@ export default {
     BlockClock,
     BlockTimeBox,
     TransactionsBox,
+    SupplyBox,
     DataManipulator
   },
 
@@ -169,6 +171,9 @@ export default {
         case 'block-time':
           result = 'BlockTimeBox'
           break;
+        case 'supply':
+          result = 'SupplyBox'
+          break;
       }
 
       return result
@@ -183,6 +188,9 @@ export default {
           break;
         case 'block-time':
           result = 'BlockTimeBox'
+          break;
+        case 'supply':
+          result = 'SupplyBox'
           break;
       }
 
